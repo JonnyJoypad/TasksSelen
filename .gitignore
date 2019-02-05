@@ -27,7 +27,6 @@ hs_err_pid*
 *.html
 *.txt
 *.css
-*.xml
 *.properties
 target/surefire-reports/jquery-1.7.1.min.js
 target/surefire-reports/testng-reports.js
