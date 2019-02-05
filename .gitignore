@@ -21,3 +21,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+*.lst
+*.png
+*.gif
+*.html
+*.txt
+*.css
+*.xml
+*.properties
+target/surefire-reports/jquery-1.7.1.min.js
+target/surefire-reports/testng-reports.js
