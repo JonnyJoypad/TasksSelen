@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomePage extends Page {
     private By headerCurrencyButton = By.cssSelector(".expand-more._gray-darker.hidden-sm-down");
     private By eurCurrencyType = By.xpath("//a[.='EUR €']");
@@ -44,15 +47,54 @@ public class HomePage extends Page {
 
     public boolean checkCurrency(String currency) {
         waitUntilElementIsClickable(this.productPrice);
-        WebElement productPrice = driver.findElement(this.productPrice);
-        String symbol = productPrice.getText();
         switch (currency) {
             case "eur":
-                return symbol.contains("€") || symbol.contains("EUR");
+                List<String> priceEUR = new ArrayList<String>();
+                List<WebElement> allEUR = driver.findElements(this.productPrice);
+                for (WebElement webElement : allEUR) {
+                    priceEUR.add(webElement.getText());
+                }
+                for (int i = 0; i < priceEUR.size(); i++) {
+                    if(priceEUR.get(i).contains("€")) {
+                        return true;
+                    }else
+                        return false;
+
+                }
+
             case "uah":
-                return symbol.contains("₴");
+
+                List<String> priceUAH = new ArrayList<>();
+                List<WebElement> allText = driver.findElements(this.productPrice);
+                for (WebElement webElement : allText) {
+                    priceUAH.add(webElement.getText());
+                }
+
+                for (int i = 0; i < priceUAH.size(); i++) {
+                    if( priceUAH.get(i).contains("₴") == true) {
+                        return true;
+                    }else
+                        return false;
+
+                }
+
             case "usd":
-                return symbol.contains("$") || symbol.contains("USD");
+                List<String> priceUSD = new ArrayList<>();
+                List<WebElement> allUSD = driver.findElements(this.productPrice);
+                for (WebElement webElement : allUSD) {
+                    priceUSD.add(webElement.getText());
+                }
+                if (priceUSD != null) {
+                    for (int i = 0; i < priceUSD.size(); i++) {
+                        if (priceUSD.get(i).contains("$")) {
+                            return true;
+                        } else {
+                            return false;
+
+                        }
+                    }
+                }
+
             default:
                 throw new IllegalArgumentException("Error with picking up a currency");
         }
